@@ -1,0 +1,488 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="MasterPage" %>
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    
+    	<meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+		<title>mybankStatement </title>
+        
+		<meta name="description" content="overview &amp; stats" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- basic styles -->
+    
+		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css" /> 
+		<link rel="stylesheet" type="text/css" media="screen" href="assets/css/smartadmin-production.css" />
+
+		<link rel="stylesheet" href="assets/css/ace-fonts.css" />
+
+		<!-- ace styles -->
+
+		<link rel="stylesheet" href="assets/css/ace.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />  
+        <link href="Styles/Site.css" rel="stylesheet" type="text/css" />
+	    <link rel="stylesheet" href="assets/css/datepicker.css" />
+		<link rel="stylesheet" href="assets/css/bootstrap-timepicker.css" />
+		<link rel="stylesheet" href="assets/css/daterangepicker.css" /> 
+	
+		<script src="assets/js/ace-extra.min.js" type="text/javascript"></script>
+        <%--<script src="jquery.min.js" type="text/javascript"></script> --%>
+              <script src="assets/sweetalert/dist/sweetalert.min.js" type="text/javascript"></script>
+       <script type="text/javascript">
+           if (typeof window.JSON == 'undefined') {
+               document.write('<script src="../scripts/json2.js"><\/script>');
+           }
+</script>
+    <link rel="stylesheet" href="assets/sweetalert/dist/sweetalert.css" />
+
+		 <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+		
+</head>
+<body>
+    <form id="form1" runat="server"> 
+     <asp:ScriptManager ID="scriptManager1" runat="server"></asp:ScriptManager>
+		<div class="navbar navbar-default" id="navbar" style="background-color:#b9d507">
+			<script type="text/javascript">
+			    try { ace.settings.check('navbar', 'fixed') } catch (e) { }
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<div class="navbar-header pull-left">
+					<a href="#" class="navbar-brand">
+						<small>
+						
+<span style="color:White">mybank</span>
+									<span class="white" style="margin-left:-8px">Statement<SUP> &reg; </SUP></span>
+								
+						</small>
+					</a><!-- /.brand -->
+				</div><div class="pull-right" style="margin-top:10px">	<a href="Login.aspx" style="color:white;font-size:24px">
+								<i class="icon-circle-arrow-left" title="Log out"></i> 
+							</a></div><!-- /.navbar-header -->
+
+				<div class="navbar-header pull-right" role="navigation" runat = "server" id = "Tabpanel">
+					
+                          
+					<!-- /.ace-nav -->
+				</div><!-- /.navbar-header -->
+			</div><!-- /.container -->
+		</div>
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+			    try { ace.settings.check('main-container', 'fixed') } catch (e) { }
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				<div class="sidebar" id="sidebar">
+					<script type="text/javascript">
+					    try { ace.settings.check('sidebar', 'fixed') } catch (e) { }
+					</script>
+
+					<div class="sidebar-shortcuts" id="sidebar-shortcuts" style="background-color:#f5f5f5">
+						<asp:panel ID="pSearch" runat="server"> <table border="0" cellspacing="0" ><tr>
+         <td valign="middle" style="padding-left:10px;height:39px" > 
+           </td><td valign="middle" align ="left" style="display:none">
+                           <asp:linkbutton ID="Linkbutton1" class="btn btn-info btn-xs" style="width: 30px; height: 30px" runat="server">
+												<i class="icon-search  bigger-110 icon-only"></i>
+											</asp:linkbutton>
+                             </td></tr></table> </asp:panel> </div> 
+
+					<ul class="nav nav-list">
+						<li id="liDashBoard" runat="server" visible="false">
+							<a href="dashboard.aspx">
+								<i class="icon-file-text-alt"></i>
+								<span class="menu-text"> eStatements </span>
+							</a>
+						</li> 
+                       <li id="liManageUsers" runat="server" visible="false">
+								<a href="CreateUser.aspx"  class="dropdown-toggle">
+										<i class="icon-user"></i>
+										 Manage Users  
+									</a>  
+								</li> 
+						<li id="liManageRole" runat="server" visible="false">
+								<a href="ManageRole.aspx"  class="dropdown-toggle">
+										<i class="icon-group"></i>
+										 Manage Roles  
+									</a>  
+								</li> 		 
+						<li id="liPreview" runat="server"  visible="false">
+							<a href="Preview.aspx">
+								<i class="icon-envelope"></i>
+								<span class="menu-text"> Inbox </span>
+							</a>
+						</li> 	   
+								 
+						<li id="liAuditLogs" runat="server" visible="false">
+							<a href="AuditLogs.aspx">
+								<i class="icon-exchange"></i>
+								<span class="menu-text"> Audit Logs </span>
+							</a>
+						</li> 	
+                        <li id="lieStatementAudit" runat="server" visible="false">
+							<a href="eStatement.aspx">
+								<i class="icon-circle-arrow-up"></i>
+								<span class="menu-text">Sent eStatement </span>
+							</a>
+						</li> 
+                        <li id="liRequest" runat="server" visible="false">
+							<a href="RequestStatement.aspx">
+								<i class="icon-mail-forward"></i>
+								<span class="menu-text"> Request Statement </span>
+							</a>
+						</li> 
+						
+                        <li id="liPricing" runat="server" visible="false">
+							<a href="Pricing.aspx">
+								<i class="icon-money"></i>
+								<span class="menu-text"> Pricing </span>
+							</a>
+						</li>
+                        <li id="liApproval" runat="server" visible="false">
+							<a href="Approval.aspx">
+								<i class="icon-thumbs-up-alt"></i>
+								<span class="menu-text"> Approval </span>
+							</a>
+						</li>
+                        <li id="liReport" runat="server" visible="false">
+							<a href="Report.aspx">
+                               <i class="icon-bar-chart"></i>
+								<span class="menu-text"> Report </span>
+							</a>
+						</li>
+                        <li id="liOutbox" runat="server" visible="false">
+							<a href="Outbox.aspx">
+                               <i class="icon-circle-arrow-up"></i>
+								<span class="menu-text"> Outbox </span>
+							</a>
+						</li>
+                        <li id="liUserGuide" runat="server">
+							<a href="UserGuide.aspx">
+								<i class="icon-book"></i>
+								<span class="menu-text"> User Guide </span>
+							</a>
+						</li>
+					</ul> <!-- /.nav-list -->
+
+					<div class="sidebar-collapse" id="sidebar-collapse">
+						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+					</div>
+
+					<script type="text/javascript">
+					    try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+					</script>
+				</div>
+
+				<div class="main-content">
+					<div  class="breadcrumbs"   style="padding-top:6px">
+						  
+						<ul class="breadcrumb pull-left">
+							<li class="active" id="liActivePage1" style="color:Gray" runat="server" visible="false"> 
+		                     	<i class="icon-home home-icon"></i>
+							<asp:LinkButton ID="lbActivePage1" runat="server"></asp:LinkButton>
+							</li>
+							<li class="active" id="liActivePage2" runat="server" visible="false" CausesValidation="false">
+                            <asp:LinkButton ID="lbActivePage2" runat="server" CausesValidation="false"></asp:LinkButton></li>
+						</ul> 
+                        <span class="pull-right breadcrumb" style="color:gray" runat="server" id="spanUserRole"> 
+                            <asp:Label runat="server" ID="lbUserInfo"></asp:Label> </span>
+					</div> 
+                     <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+                             </asp:ContentPlaceHolder> 
+					<!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+				 <!-- /#ace-settings-container -->
+                <%--<div class="footer" style="margin-top:50px;">
+                        <footer id="footer" class="align-bottom" style="border-top-color:#b9d507; 
+    border-top-style:solid; padding-right:50px; padding-left:50px; margin-top:50px;
+    border-top-width:5px; 
+    position:fixed;
+   bottom:0px;
+   height:60px;
+   width:100%;
+   background:#ffffff;color:#b9d507;vertical-align:middle; line-height:60px;"><span class="pull-left">
+                         Copyright &copy; 
+                        <a href="http://www.wallzandqueenltd.com" style="text-decoration : none; color : #b9d507"> Wallz and Queen Limited</a></span>
+                        
+
+                     </footer>
+                    </div>--%>
+			</div><!-- /.main-container-inner -->
+             
+		</div> 
+		<script type="text/javascript">
+		    window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>" + "<" + "/script>");
+		</script>
+         
+		<script type="text/javascript">
+		    if ("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+		</script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/typeahead-bs2.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+
+		<!--[if lte IE 8]>
+		  <script src="assets/js/excanvas.min.js"></script>
+		<![endif]-->
+
+		<script src="assets/js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+		<script src="assets/js/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
+		<script src="assets/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+		<script src="assets/js/jquery.easy-pie-chart.min.js" type="text/javascript"></script>
+		<script src="assets/js/jquery.sparkline.min.js" type="text/javascript"></script>
+		<script src="assets/js/flot/jquery.flot.min.js" type="text/javascript"></script>
+		<script src="assets/js/flot/jquery.flot.pie.min.js" type="text/javascript"></script>
+		<script src="assets/js/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
+ 
+		<!-- fonts -->
+        <script src="assets/js/date-time/bootstrap-datepicker.min.js" type="text/javascript"></script>
+		<script src="assets/js/date-time/moment.min.js" type="text/javascript"></script>
+		<script src="assets/js/date-time/daterangepicker.min.js" type="text/javascript"></script>
+
+		<!-- ace scripts --> 
+		
+        <script src="js/SmartNotification.min.js" type="text/javascript"></script>
+        <script src="assets/js/ace-elements.min.js" type="text/javascript"></script>
+		<script src="assets/js/ace.min.js" type="text/javascript"></script>
+	    <script type="text/javascript">
+	    if ("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+		</script>
+
+		<!-- inline scripts related to this page -->
+
+		<script type="text/javascript"> 
+		    jQuery(function ($) {
+
+
+		        $('.date-picker').datepicker({ autoclose: true }).next().on(ace.click_event, function () {
+		            $(this).prev().focus();
+		        });
+		        $('input[name=date-range-picker]').daterangepicker().prev().on(ace.click_event, function () {
+		            $(this).next().focus();
+		        });
+		        $('#timepicker1').timepicker({
+		            minuteStep: 1,
+		            showSeconds: true,
+		            showMeridian: false
+		        }).next().on(ace.click_event, function () {
+		            $(this).prev().focus();
+		        });
+
+
+
+		    });
+		    jQuery(function ($) {
+		        $('.easy-pie-chart.percentage').each(function () {
+		            var $box = $(this).closest('.infobox');
+		            var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
+		            var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
+		            var size = parseInt($(this).data('size')) || 50;
+		            $(this).easyPieChart({
+		                barColor: barColor,
+		                trackColor: trackColor,
+		                scaleColor: false,
+		                lineCap: 'butt',
+		                lineWidth: parseInt(size / 10),
+		                animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
+		                size: size
+		            });
+		        })
+
+		        $('.sparkline').each(function () {
+		            var $box = $(this).closest('.infobox');
+		            var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+		            $(this).sparkline('html', { tagValuesAttribute: 'data-values', type: 'bar', barColor: barColor, chartRangeMin: $(this).data('min') || 0 });
+		        });
+
+
+
+
+		        var placeholder = $('#piechart-placeholder').css({ 'width': '90%', 'min-height': '150px' });
+		        var data = [
+				{ label: "social networks", data: 38.7, color: "#68BC31" },
+				{ label: "search engines", data: 24.5, color: "#2091CF" },
+				{ label: "ad campaigns", data: 8.2, color: "#AF4E96" },
+				{ label: "direct traffic", data: 18.6, color: "#DA5430" },
+				{ label: "other", data: 10, color: "#FEE074" }
+		        ]
+		        function drawPieChart(placeholder, data, position) {
+		            $.plot(placeholder, data, {
+		                series: {
+		                    pie: {
+		                        show: true,
+		                        tilt: 0.8,
+		                        highlight: {
+		                            opacity: 0.25
+		                        },
+		                        stroke: {
+		                            color: '#fff',
+		                            width: 2
+		                        },
+		                        startAngle: 2
+		                    }
+		                },
+		                legend: {
+		                    show: true,
+		                    position: position || "ne",
+		                    labelBoxBorderColor: null,
+		                    margin: [-30, 15]
+		                }
+					,
+		                grid: {
+		                    hoverable: true,
+		                    clickable: true
+		                }
+		            })
+		        }
+		        drawPieChart(placeholder, data);
+
+		        /**
+		        we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
+		        so that's not needed actually.
+		        */
+		        placeholder.data('chart', data);
+		        placeholder.data('draw', drawPieChart);
+
+
+
+		        var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
+		        var previousPoint = null;
+
+		        placeholder.on('plothover', function (event, pos, item) {
+		            if (item) {
+		                if (previousPoint != item.seriesIndex) {
+		                    previousPoint = item.seriesIndex;
+		                    var tip = item.series['label'] + " : " + item.series['percent'] + '%';
+		                    $tooltip.show().children(0).text(tip);
+		                }
+		                $tooltip.css({ top: pos.pageY + 10, left: pos.pageX + 10 });
+		            } else {
+		                $tooltip.hide();
+		                previousPoint = null;
+		            }
+
+		        });
+
+
+
+
+
+
+		        var d1 = [];
+		        for (var i = 0; i < Math.PI * 2; i += 0.5) {
+		            d1.push([i, Math.sin(i)]);
+		        }
+
+		        var d2 = [];
+		        for (var i = 0; i < Math.PI * 2; i += 0.5) {
+		            d2.push([i, Math.cos(i)]);
+		        }
+
+		        var d3 = [];
+		        for (var i = 0; i < Math.PI * 2; i += 0.2) {
+		            d3.push([i, Math.tan(i)]);
+		        }
+
+
+		        var sales_charts = $('#sales-charts').css({ 'width': '100%', 'height': '220px' });
+		        $.plot("#sales-charts", [
+					{ label: "Domains", data: d1 },
+					{ label: "Hosting", data: d2 },
+					{ label: "Services", data: d3 }
+		        ], {
+		            hoverable: true,
+		            shadowSize: 0,
+		            series: {
+		                lines: { show: true },
+		                points: { show: true }
+		            },
+		            xaxis: {
+		                tickLength: 0
+		            },
+		            yaxis: {
+		                ticks: 10,
+		                min: -2,
+		                max: 2,
+		                tickDecimals: 3
+		            },
+		            grid: {
+		                backgroundColor: { colors: ["#fff", "#fff"] },
+		                borderWidth: 1,
+		                borderColor: '#555'
+		            }
+		        });
+
+
+		        $('#recent-box [data-rel="tooltip"]').tooltip({ placement: tooltip_placement });
+		        function tooltip_placement(context, source) {
+		            var $source = $(source);
+		            var $parent = $source.closest('.tab-content')
+		            var off1 = $parent.offset();
+		            var w1 = $parent.width();
+
+		            var off2 = $source.offset();
+		            var w2 = $source.width();
+
+		            if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+		            return 'left';
+		        }
+
+
+		        $('.dialogs,.comments').slimScroll({
+		            height: '300px'
+		        });
+
+
+		        //Android's default browser somehow is confused when tapping on label which will lead to dragging the task
+		        //so disable dragging when clicking on label
+		        var agent = navigator.userAgent.toLowerCase();
+		        if ("ontouchstart" in document && /applewebkit/.test(agent) && /android/.test(agent))
+		            $('#tasks').on('touchstart', function (e) {
+		                var li = $(e.target).closest('#tasks li');
+		                if (li.length == 0) return;
+		                var label = li.find('label.inline').get(0);
+		                if (label == e.target || $.contains(label, e.target)) e.stopImmediatePropagation();
+		            });
+
+		        $('#tasks').sortable({
+		            opacity: 0.8,
+		            revert: true,
+		            forceHelperSize: true,
+		            placeholder: 'draggable-placeholder',
+		            forcePlaceholderSize: true,
+		            tolerance: 'pointer',
+		            stop: function (event, ui) {//just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
+		                $(ui.item).css('z-index', 'auto');
+		            }
+		        }
+				);
+		        $('#tasks').disableSelection();
+		        $('#tasks input:checkbox').removeAttr('checked').on('click', function () {
+		            if (this.checked) $(this).closest('li').addClass('selected');
+		            else $(this).closest('li').removeClass('selected');
+		        });
+
+
+		    })
+             
+		</script>
+ <table runat="server" id="tblShowError" visible="false"><tr><td> <asp:Label runat="server" ID="lblShowError" ForeColor="Red" ></asp:Label></td>
+     </tr></table>
+  
+    </form>
+   
+   </body>
+</html>
